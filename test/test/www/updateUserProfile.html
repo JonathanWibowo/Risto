@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <title>Blank App</title>
+    </head>
+    <body>
+        <script type="text/javascript" src="cordova.js"></script>
+		<script type="text/javascript" src="geturi.js"></script>
+		<script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+		<br><br><br>
+		<h3>Name</h3>
+		<input type="text" id="name">
+		<h3>Email</h3>
+		<input type="text" id="email">
+		<h3>Password</h3>
+		<input type="password" id="password">
+		<h3>Phone</h3>
+		<input type="text" id="phone">
+		<br>
+		<button onclick="updateUser()">Update</button>
+    </body>
+	<script>
+		var obj, dbParam, xmlhttp;
+		tableName = JSON.stringify("user");
+		dbParamEmail = JSON.stringify(sessionStorage.getItem('email'));
+		xmlhttp = new XMLHttpRequest();
+		xmlhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+				myArr = JSON.parse(this.responseText);
+				document.getElementById("name").value = myArr[0].name;
+				document.getElementById("email").value = myArr[0].email;
+				document.getElementById("password").value = myArr[0].password;
+				document.getElementById("phone").value = myArr[0].phone;
+			}
+		};
+		xmlhttp.open("GET", "https://jwtristo.000webhostapp.com/getUserDetail.php?x=" + tableName +"&email=" + dbParamEmail, true);
+		xmlhttp.send();
+		
+		function updateUser()
+		{
+			console.log("testing");
+			var name=$("#name").val();
+			var password=$("#password").val();
+			var email=$("#email").val();
+			var phone=$("#phone").val();
+			var dataString="name="+name+"&password="+password+"&email="+email+"&phone="+phone+"&userID="+sessionStorage.getItem('userID')+"&insert=";
+			
+				$.ajax({
+					type: "POST",
+					url:"https://jwtristo.000webhostapp.com/updateUserProfile.php",
+					data: dataString,
+					crossDomain: true,
+					cache: false,
+					beforeSend: function(){ $("#insert").val('Connecting...');},
+					success: function(data){
+						
+						if(data=="success")
+						{
+							alert("Updated");
+							$("#insert").val('Update');
+						}
+						else if(data=="errory")
+						{
+							alert("errory");
+						}
+					}
+				});
+			return false;
+		}
+	</script>
+</html>

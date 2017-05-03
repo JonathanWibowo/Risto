@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <title>Blank App</title>
+    </head>
+    <body>
+        <script type="text/javascript" src="cordova.js"></script>
+		<script type="text/javascript" src="geturi.js"></script>
+		<script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+		<p id="name"></p>
+		<br>
+		<p id="id"></p>
+		<br><br><br>
+		<button onclick="openWishlist()">WishList</button>
+		<button onclick="openUpdatePage()">Update Profile</button>
+    </body>
+	<script type="text/javascript">
+			var obj, dbParam, xmlhttp;
+			tableName = JSON.stringify("user");
+			dbParamEmail = JSON.stringify(sessionStorage.getItem('email'));
+			xmlhttp = new XMLHttpRequest();
+			xmlhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					myArr = JSON.parse(this.responseText);
+					//alert(myArr[0].name);
+					document.getElementById("name").innerHTML = myArr[0].name;
+					document.getElementById("id").innerHTML = sessionStorage.getItem('userID');
+				}
+			};
+			xmlhttp.open("GET", "https://jwtristo.000webhostapp.com/getUserDetail.php?x=" + tableName +"&email=" + dbParamEmail, true);
+			xmlhttp.send();
+			alert("https://jwtristo.000webhostapp.com/getUserDetail.php?x=" + tableName +"&email=" + dbParamEmail);
+			
+			function openWishlist()
+			{
+				window.location = "wishlist.html";
+			}
+			
+			function openUpdatePage()
+			{
+				window.location = "updateUserProfile.html";
+			}
+			
+	</script>
+</html>

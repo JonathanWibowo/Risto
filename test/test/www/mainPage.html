@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+    <!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />
+    <title>Blank App</title>
+	<script type="text/javascript" charset="utf-8">
+		document.addEventListener("deviceready", onDeviceReady, true);
+	
+			function callUserProfilePage()
+            {
+              window.location = "userProfile.html";
+            }
+			
+			function callPromotionListPage()
+            {
+              window.location = "promotionList.html";
+            }
+			
+    </script>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+	
+</head>
+
+<body>
+	
+	<h1>Hello</h1>
+	<br>
+	
+	<div id="tinder-side">
+        <div id="tinderslide">
+            <ul id="mainContainer">
+				<li class="pane1">
+                    <div class="img"></div>
+                    <div>Loading</div>
+                    <div class="like"></div>
+                    <div class="dislike"></div>
+                </li>
+                <li class="pane1" id="one">
+                    <div class="img"></div>
+                    <div>Miami Beach</div>
+                    <div class="like"></div>
+                    <div class="dislike"></div>
+                </li>
+                <li class="pane1" id="two">
+                    <div class="img"></div>
+                    <div>Miami Beach</div>
+                    <div class="like"></div>
+                    <div class="dislike"></div>
+                </li>
+                <li class="pane1" id="three">
+                    <div class="img"></div>
+                    <div>Miami Beach</div>
+                    <div class="like"></div>
+                    <div class="dislike"></div>
+                </li>
+                <li class="pane1" id="four">
+                    <div class="img"></div>
+                    <div>Miami Beach</div>
+                    <div class="like"></div>
+                    <div class="dislike"></div>
+                </li>
+                <li class="pane1" id="five">
+                    <div class="img"></div>
+                    <div>Miami Beach 5</div>
+                    <div class="like"></div>
+                    <div class="dislike"></div>
+                </li>
+            </ul>
+        </div>
+    </div>
+	
+	<br>
+	<button name="buttonClick" onclick="callUserProfilePage()">Profile</button>
+	<br><br><br>
+	<button name="buttonClick" onclick="callPromotionListPage()">Promotion</button>
+</body>
+
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="geturi.js"></script>
+<script type="text/javascript" src="javascript/index.js"></script>
+<!-- jQuery lib -->
+<script type="text/javascript" src="javascript/jquery.min.js"></script>
+<!-- transform2d lib -->
+<script type="text/javascript" src="javascript/jquery.transform2d.js"></script>
+<!-- jTinder lib -->
+<script type="text/javascript" src="javascript/jquery.jTinder.js"></script>
+<!-- jTinder initialization script -->
+<script type="text/javascript" src="javascript/main.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+
+</html>

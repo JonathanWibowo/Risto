@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <title>Blank App</title>
+    </head>
+    <body>
+        <script type="text/javascript" src="cordova.js"></script>
+		<script type="text/javascript" src="geturi.js"></script>
+		<script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function()
+			{
+				$("#insert").click(function(){
+					
+					var password=$("#password").val();
+					var email=$("#email").val();
+					var dataString="&password="+password+"&email="+email+"&insert=";
+						$.ajax({
+							type: "POST",
+							url:"https://jwtristo.000webhostapp.com/login.php",
+							data: dataString,
+							crossDomain: true,
+							cache: false,
+							beforeSend: function(){ $("#insert").val('Connecting...');},
+								success: function(data){
+									console.log("testing");
+									if(data=="success")
+									{
+										$("#insert").val('submit');
+										sessionStorage.setItem('email',email);
+										
+										var obj, dbParam, xmlhttp;
+										tableName = JSON.stringify("user");
+										dbParamEmail = JSON.stringify(sessionStorage.getItem('email'));
+										xmlhttp = new XMLHttpRequest();
+										xmlhttp.onreadystatechange = function() {
+											if (this.readyState == 4 && this.status == 200) {
+												myArr = JSON.parse(this.responseText);
+												sessionStorage.setItem('userID', myArr[0].id);
+												window.location = "mainPage.html";
+											}
+										};
+										xmlhttp.open("GET", "https://jwtristo.000webhostapp.com/getUserDetail.php?x=" + tableName +"&email=" + dbParamEmail, true);
+										xmlhttp.send();
+										
+										
+										
+									}
+									else if(data=="errory")
+									{
+										alert("errory");
+										alert(dataString);
+										$("#insert").val('submit');
+									}
+								}
+						});
+					return false;
+				});
+			});
+		</script>
+		
+		<div class="bar bar-header bar-positive" style="margin-bottom:80px;">
+			<h1>Insert Database</h1>
+			<a class="button button-clear" href="readjson.html">Read JSON</a>
+			</div><br/><br/>
+			<div class="list">
+			<input type="hidden" id="id" value=""/>
+			<div class="item">
+				<label>Email</label>
+				<input type="text" id="email" value=""/>
+			</div>
+			<div class="item">
+				<label>password</label>
+				<input type="text" id="password" value=""/>
+			</div>
+			<div class="item">
+				<input type="button" id="insert" class="button button-block" value="Insert"/>
+			</div>
+		</div>
+		
+    </body>
+</html>

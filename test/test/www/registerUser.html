@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <title>Blank App</title>
+    </head>
+    <body>
+        <script type="text/javascript" src="cordova.js"></script>
+		<script type="text/javascript" src="geturi.js"></script>
+		<script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function()
+			{
+				$("#insert").click(function(){
+					
+					var name=$("#name").val();
+					var password=$("#password").val();
+					var email=$("#email").val();
+					var dateOfBirth=$("#dateOfBirth").val();
+					var phone=$("#phone").val();
+					var gender=$("#gender").val();
+					var dataString="name="+name+"&password="+password+"&email="+email+"&birthday="+dateOfBirth+"&phone="+phone+"&gender="+gender+"&insert=";
+					if($.trim(name).length>0 & $.trim(password).length>7& $.trim(email).length>0& $.trim(phone).length>0& $.trim(gender).length>0&dateOfBirth.length>0)
+					{
+						$.ajax({
+							type: "POST",
+							url:"https://jwtristo.000webhostapp.com/registerUser.php",
+							data: dataString,
+							crossDomain: true,
+							cache: false,
+							beforeSend: function(){ $("#insert").val('Connecting...');},
+								success: function(data){
+									console.log("testing");
+									if(data=="success")
+									{
+										alert("inserted");
+										$("#insert").val('submit');
+									}
+									else if(data=="errory")
+									{
+										alert("errory");
+										alert(dataString);
+									}
+								}
+						});
+					}return false;
+				});
+			});
+		</script>
+		
+		<div class="bar bar-header bar-positive" style="margin-bottom:80px;">
+			<h1>Insert Database</h1>
+			<a class="button button-clear" href="readjson.html">Read JSON</a>
+			</div><br/><br/>
+			<div class="list">
+			<input type="hidden" id="id" value=""/>
+			<div class="item">
+				<label>name</label>
+				<input type="text" id="name" value=""/>
+			</div>
+			<div class="item">
+				<label>Email</label>
+				<input type="text" id="email" value=""/>
+			</div>
+			<div class="item">
+				<label>password</label>
+				<input type="text" id="password" value=""/>
+			</div>
+			<div class="item">
+				<label>Date of Birth</label>
+				<input type="date" id="dateOfBirth" value=""/>
+			</div>
+			<div class="item">
+				<label>Phone</label>
+				<input type="text" id="phone" value=""/>
+			</div>
+			<div class="item">
+				<label>Gender</label>
+				<select id="gender">
+					<option value="Male">Male</option>
+					<option value="Female">Female</option>
+				</select>
+			</div>
+			<div class="item">
+				<input type="button" id="insert" class="button button-block" value="Insert"/>
+			</div>
+		</div>
+		
+    </body>
+</html>
